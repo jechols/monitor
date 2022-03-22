@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"om-gwtf/internal/config"
+	"om-gwtf/internal/libweb"
 	"om-gwtf/internal/oregonnews"
 	"os"
 )
@@ -14,6 +15,7 @@ func main() {
 	case "oregonnews":
 		test = oregonnews.Run
 	case "libweb":
+		test = libweb.Run
 	default:
 		c.Usage(fmt.Errorf(`-tool must be "oregonnews" or "libweb"`))
 	}
