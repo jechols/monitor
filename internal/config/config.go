@@ -13,7 +13,8 @@ type Config struct {
 	PrintBody bool
 	URL       *url.URL
 	Tool      string
-	flags *flag.FlagSet
+	EmailTo   string
+	flags     *flag.FlagSet
 	insecure  bool
 	host      string
 }
@@ -31,6 +32,7 @@ func New(args []string) *Config {
 	c.flags.StringVar(&c.host, "host", "localhost", "hostname for the search")
 	c.flags.BoolVar(&c.PrintBody, "print", false, "print the web page's body to STDOUT")
 	c.flags.StringVar(&c.Tool, "tool", "", "tool to run (oregonnews or libweb)")
+	c.flags.StringVar(&c.EmailTo, "email-to", "", "who gets emails on outages")
 
 	// flag.FlagSet force-writes to output, so to keep output sane and easy to
 	// parse, we have to set up a fake
@@ -39,6 +41,9 @@ func New(args []string) *Config {
 	var err = c.flags.Parse(os.Args[1:])
 	if err != nil {
 		c.Usage(err)
+	}
+	if c.EmailTo == "" {
+		c.Usage(fmt.Errorf("-email-to must be set"))
 	}
 
 	c.URL = new(url.URL)

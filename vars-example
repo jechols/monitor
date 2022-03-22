@@ -1,0 +1,4 @@
+export SMTP_HOST="smtp.example.org"
+export SMTP_USERNAME="user@example.org"
+export SMTP_PASSWORD="s3krit"
+export SMTP_PORT="587"
